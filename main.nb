@@ -1,0 +1,1055 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     47422,       1047]
+NotebookOptionsPosition[     46042,       1019]
+NotebookOutlinePosition[     46502,       1037]
+CellTagsIndexPosition[     46459,       1034]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8405080997497683`*^9, 3.8405081100892425`*^9}, {
+   3.888997353235923*^9, 3.8889973584217806`*^9}, 3.942386440340816*^9, 
+   3.9424421285070786`*^9, {3.9475951869634123`*^9, 3.9475952045155163`*^9}, 
+   3.9765005972821164`*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"3816271f-da5c-4647-abcc-78883027c008"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Get", "[", "\"\<CrossSectionalPropertyMatrices`\>\"", "]"}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.9674057159516754`*^9, 3.967405748076674*^9}, {
+  3.976501670260875*^9, 3.976501672836804*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"0b08df36-b061-4139-8147-cad1c7d3b454"],
+
+Cell["\<\
+import six-node triangular mesh method 1, import from *.inp file\
+\>", "Text",
+ CellChangeTimes->{{3.9424442245007105`*^9, 3.942444228417825*^9}, {
+  3.9475946401317153`*^9, 3.9475946482330036`*^9}, {3.9765029853281145`*^9, 
+  3.976503057555766*^9}},
+ Background->RGBColor[
+  0.87, 0.94, 1],ExpressionUUID->"9f31f999-dbe3-4e05-a6bb-212040c0c5ef"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"meshfile", "=", 
+   RowBox[{"ReadABAQUSFile", "[", "\"\<T9.inp\>\"", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gcoord", "=", 
+   RowBox[{
+    RowBox[{"meshfile", "[", "\"\<nodes\>\"", "]"}], "[", 
+    RowBox[{"[", 
+     RowBox[{";;", ",", 
+      RowBox[{"1", ";;", "2"}]}], "]"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gnum", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"meshfile", "[", "\"\<faceElements\>\"", "]"}], "[", 
+     "\"\<Surface1\>\"", "]"}], "[", 
+    RowBox[{"[", 
+     RowBox[{";;", ",", 
+      RowBox[{"2", ";;"}]}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.9477290533582287`*^9, 3.947729078748205*^9}, 
+   3.947729185635216*^9, {3.947729614004631*^9, 3.9477296189874206`*^9}, 
+   3.947729777739726*^9, 3.9477298501801047`*^9, 3.9477316506708484`*^9, {
+   3.9531737214363976`*^9, 3.9531737266553073`*^9}, {3.9531823486443596`*^9, 
+   3.953182349240431*^9}, 3.953965900423955*^9, 3.9765017233606796`*^9, {
+   3.976501969518559*^9, 3.976501987162221*^9}, 3.976503019544667*^9},
+ CellLabel->"In[3]:=",ExpressionUUID->"23ac4dc3-06db-4f38-be4d-212407832ed6"],
+
+Cell["\<\
+import six-node triangular mesh method 2, import from *.xlsx file\
+\>", "Text",
+ CellChangeTimes->{{3.9424442245007105`*^9, 3.942444228417825*^9}, {
+  3.9475946401317153`*^9, 3.9475946482330036`*^9}, {3.9765029853281145`*^9, 
+  3.9765030702751036`*^9}},
+ Background->RGBColor[
+  0.87, 0.94, 1],ExpressionUUID->"7c7030d6-b097-4b82-a16f-dc04923b5212"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"gcoord", ",", "gnum"}], "}"}], "=", 
+   RowBox[{"Import", "[", "\"\<C-shaped-mesh.xlsx\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"gnum", "=", 
+   RowBox[{"gnum", "[", 
+    RowBox[{"[", 
+     RowBox[{";;", ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "3", ",", "5", ",", "2", ",", "4", ",", "6"}], 
+       "}"}]}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.9557877987938986`*^9, 3.955787818220659*^9}, 
+   3.9765034292754493`*^9},
+ CellLabel->"In[6]:=",ExpressionUUID->"17129d06-67d1-4218-abba-852a8391e409"],
+
+Cell["visualize the imported mesh data", "Text",
+ CellChangeTimes->{{3.9424442245007105`*^9, 3.942444228417825*^9}, {
+  3.9475946401317153`*^9, 3.9475946482330036`*^9}, {3.9765029853281145`*^9, 
+  3.9765030930979004`*^9}},
+ Background->RGBColor[
+  0.87, 0.94, 1],ExpressionUUID->"91ccff5c-2fcd-4637-a44e-a657cec5d44f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"showMesh", "[", 
+  RowBox[{"gnum", ",", "gcoord", ",", "8", ",", "8", ",", "500"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.976503485427719*^9, 3.976503501397278*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"7d268aa6-7839-43ff-8128-ba46b3dd6bb7"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.080683, -0.099991}, {0.125683, -0.099991}, {
+     0.125683, -0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.080683, -0.099991}, {0.125683, -0.079991}, {
+     0.080683, -0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.035683, -0.099991}, {0.080683, -0.099991}, {
+     0.080683, -0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.035683, -0.099991}, {0.080683, -0.079991}, {
+     0.035683, -0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.009317, -0.099991}, {0.035683, -0.099991}, {
+     0.035683, -0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.009317, -0.099991}, {
+     0.035683, -0.079991}, {-0.009317, -0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.054317, -0.099991}, {-0.009317, -0.099991}, {-0.009317, \
+-0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.054317, -0.099991}, {-0.009317, -0.079991}, {-0.054317, \
+-0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, -0.099991}, {-0.054317, -0.099991}, {-0.054317, \
+-0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, -0.099991}, {-0.054317, -0.079991}, {-0.074317, \
+-0.079991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, -0.079991}, {-0.054317, -0.079991}, {-0.054317, \
+-0.039991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, -0.079991}, {-0.054317, -0.039991}, {-0.074317, \
+-0.039991}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, -0.039991}, {-0.054317, -0.039991}, {-0.054317, 
+     9.*^-6}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, -0.039991}, {-0.054317, 9.*^-6}, {-0.074317, 
+     9.*^-6}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, 9.*^-6}, {-0.054317, 9.*^-6}, {-0.054317, 
+     0.040009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, 9.*^-6}, {-0.054317, 0.040009}, {-0.074317, 
+     0.040009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, 0.040009}, {-0.054317, 0.040009}, {-0.054317, 
+     0.080009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, 0.040009}, {-0.054317, 0.080009}, {-0.074317, 
+     0.080009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, 0.080009}, {-0.054317, 0.100009}, {-0.074317, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.074317, 0.080009}, {-0.054317, 0.080009}, {-0.054317, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.054317, 0.080009}, {-0.009317, 0.100009}, {-0.054317, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.054317, 0.080009}, {-0.009317, 0.080009}, {-0.009317, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.009317, 0.080009}, {0.035683, 0.100009}, {-0.009317, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{-0.009317, 0.080009}, {0.035683, 0.080009}, {0.035683, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.035683, 0.080009}, {0.080683, 0.100009}, {0.035683, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.035683, 0.080009}, {0.080683, 0.080009}, {0.080683, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.080683, 0.080009}, {0.125683, 0.100009}, {0.080683, 
+     0.100009}}]}, 
+   {EdgeForm[{RGBColor[0.5, 0, 0.5], Thickness[0.0005]}], FaceForm[{RGBColor[
+    0, 1, 1], Opacity[0.2]}], 
+    PolygonBox[{{0.080683, 0.080009}, {0.125683, 0.080009}, {0.125683, 
+     0.100009}}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.100391}, {-0.073917, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.100391}, {-0.063917, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.100391}, {-0.053917, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.032216999999999996, -0.100391}, {-0.031417, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.009717, -0.100391}, {-0.008917000000000001, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.012783000000000001, -0.100391}, {0.013583, -0.099591}]}, 
+   {GrayLevel[0], RectangleBox[{0.035283, -0.100391}, {0.036083, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.057783, -0.100391}, {0.058582999999999996, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.08028300000000001, -0.100391}, {0.081083, -0.099591}]}, 
+   {GrayLevel[0], RectangleBox[{0.102783, -0.100391}, {0.103583, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.12528299999999998, -0.100391}, {0.126083, -0.099591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.090391}, {-0.073917, -0.089591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.090391}, {-0.053917, -0.089591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.009717, -0.090391}, {-0.008917000000000001, -0.089591}]}, 
+   {GrayLevel[0], RectangleBox[{0.035283, -0.090391}, {0.036083, -0.089591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.08028300000000001, -0.090391}, {0.081083, -0.089591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.12528299999999998, -0.090391}, {0.126083, -0.089591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.080391}, \
+{-0.073917, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.080391}, {-0.063917, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.080391}, \
+{-0.053917, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.032216999999999996, -0.080391}, \
+{-0.031417, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.009717, -0.080391}, \
+{-0.008917000000000001, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.012783000000000001, -0.080391}, \
+{0.013583, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.035283, -0.080391}, {0.036083, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.057783, -0.080391}, \
+{0.058582999999999996, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.08028300000000001, -0.080391}, \
+{0.081083, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.102783, -0.080391}, {0.103583, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.12528299999999998, -0.080391}, \
+{0.126083, -0.07959100000000001}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.060391}, \
+{-0.073917, -0.059591000000000005}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.060391}, \
+{-0.053917, -0.059591000000000005}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.040390999999999996}, \
+{-0.073917, -0.039591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.040390999999999996}, {-0.063917, -0.039591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.040390999999999996}, \
+{-0.053917, -0.039591}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.020391}, \
+{-0.073917, -0.019590999999999997}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.020391}, \
+{-0.053917, -0.019590999999999997}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, -0.000391}, {-0.073917, 0.000409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.000391}, {-0.063917, 0.000409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, -0.000391}, {-0.053917, 0.000409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, 0.019608999999999998}, \
+{-0.073917, 0.020409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, 0.019608999999999998}, \
+{-0.053917, 0.020409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, 0.039609000000000005}, \
+{-0.073917, 0.040409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, 0.039609000000000005}, {-0.063917, 0.040409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, 0.039609000000000005}, \
+{-0.053917, 0.040409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, 0.059609}, {-0.073917, 0.060409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, 0.059609}, {-0.053917, 0.060409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, 0.079609}, {-0.073917, 0.080409}]}, 
+   {GrayLevel[0], RectangleBox[{-0.064717, 0.079609}, {-0.063917, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, 0.079609}, {-0.053917, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.032216999999999996, 0.079609}, {-0.031417, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.009717, 0.079609}, {-0.008917000000000001, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.012783000000000001, 0.079609}, {0.013583, 0.080409}]}, 
+   {GrayLevel[0], RectangleBox[{0.035283, 0.079609}, {0.036083, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.057783, 0.079609}, {0.058582999999999996, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.08028300000000001, 0.079609}, {0.081083, 0.080409}]}, 
+   {GrayLevel[0], RectangleBox[{0.102783, 0.079609}, {0.103583, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.12528299999999998, 0.079609}, {0.126083, 0.080409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, 0.08960900000000001}, \
+{-0.073917, 0.090409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, 0.08960900000000001}, \
+{-0.053917, 0.090409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.009717, 0.08960900000000001}, \
+{-0.008917000000000001, 0.090409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.035283, 0.08960900000000001}, {0.036083, 0.090409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.08028300000000001, 0.08960900000000001}, \
+{0.081083, 0.090409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.12528299999999998, 0.08960900000000001}, \
+{0.126083, 0.090409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.07471699999999999, 0.099609}, {-0.073917, 0.100409}]}, 
+   {GrayLevel[0], RectangleBox[{-0.064717, 0.099609}, {-0.063917, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.054716999999999995, 0.099609}, {-0.053917, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.032216999999999996, 0.099609}, {-0.031417, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.009717, 0.099609}, {-0.008917000000000001, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.012783000000000001, 0.099609}, {0.013583, 0.100409}]}, 
+   {GrayLevel[0], RectangleBox[{0.035283, 0.099609}, {0.036083, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.057783, 0.099609}, {0.058582999999999996, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.08028300000000001, 0.099609}, {0.081083, 0.100409}]}, 
+   {GrayLevel[0], RectangleBox[{0.102783, 0.099609}, {0.103583, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.12528299999999998, 0.099609}, {0.126083, 0.100409}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.102783, -0.0903914}, {0.103583, -0.0895914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.057783, -0.0903914}, {0.058582999999999996, -0.0895914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.012783000000000001, -0.0903914}, {0.013583, -0.0895914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.032216999999999996, -0.0903914}, \
+{-0.031417, -0.0895914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.0903914}, {-0.063917, -0.0895914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.0603914}, {-0.063917, -0.0595914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, -0.0203914}, {-0.063917, -0.0195914}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, 0.0196086}, {-0.063917, 0.020408600000000002}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, 0.059608600000000005}, {-0.063917, 0.0604086}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.064717, 0.0896086}, {-0.063917, 0.09040859999999999}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{-0.032216999999999996, 0.0896086}, \
+{-0.031417, 0.09040859999999999}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.012783000000000001, 0.0896086}, \
+{0.013583, 0.09040859999999999}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.0572492, 0.0893714}, {0.058049199999999995, 0.0901714}]}, 
+   {GrayLevel[0], 
+    RectangleBox[{0.102783, 0.0896086}, {0.103583, 0.09040859999999999}]}, 
+   InsetBox["1", {-0.074317, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["2", {-0.064317, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["3", {-0.054317, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["4", {-0.031817, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["5", {-0.009317, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["6", {0.013183, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["7", {0.035683, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["8", {0.058183, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["9", {0.080683, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["10", {0.103183, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["11", {0.125683, -0.099991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["12", {-0.074317, -0.089991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["13", {-0.054317, -0.089991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["14", {-0.009317, -0.089991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["15", {0.035683, -0.089991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["16", {0.080683, -0.089991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["17", {0.125683, -0.089991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["18", {-0.074317, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["19", {-0.064317, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["20", {-0.054317, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["21", {-0.031817, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["22", {-0.009317, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["23", {0.013183, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["24", {0.035683, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["25", {0.058183, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["26", {0.080683, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["27", {0.103183, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["28", {0.125683, -0.079991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["29", {-0.074317, -0.059991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["30", {-0.054317, -0.059991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["31", {-0.074317, -0.039991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["32", {-0.064317, -0.039991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["33", {-0.054317, -0.039991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["34", {-0.074317, -0.019991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["35", {-0.054317, -0.019991}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["36", {-0.074317, 9.*^-6}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["37", {-0.064317, 9.*^-6}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["38", {-0.054317, 9.*^-6}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["39", {-0.074317, 0.020009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["40", {-0.054317, 0.020009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["41", {-0.074317, 0.040009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["42", {-0.064317, 0.040009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["43", {-0.054317, 0.040009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["44", {-0.074317, 0.060009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["45", {-0.054317, 0.060009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["46", {-0.074317, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["47", {-0.064317, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["48", {-0.054317, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["49", {-0.031817, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["50", {-0.009317, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["51", {0.013183, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["52", {0.035683, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["53", {0.058183, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["54", {0.080683, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["55", {0.103183, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["56", {0.125683, 0.080009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["57", {-0.074317, 0.090009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["58", {-0.054317, 0.090009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["59", {-0.009317, 0.090009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["60", {0.035683, 0.090009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["61", {0.080683, 0.090009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["62", {0.125683, 0.090009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["63", {-0.074317, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["64", {-0.064317, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["65", {-0.054317, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["66", {-0.031817, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["67", {-0.009317, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["68", {0.013183, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["69", {0.035683, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["70", {0.058183, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["71", {0.080683, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["72", {0.103183, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["73", {0.125683, 0.100009}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["74", {0.103183, -0.0899914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["75", {0.058183, -0.0899914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["76", {0.013183, -0.0899914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["77", {-0.031817, -0.0899914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["78", {-0.064317, -0.0899914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["79", {-0.064317, -0.0599914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["80", {-0.064317, -0.0199914}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["81", {-0.064317, 0.0200086}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["82", {-0.064317, 0.0600086}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["83", {-0.064317, 0.0900086}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["84", {-0.031817, 0.0900086}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["85", {0.013183, 0.0900086}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["86", {0.0576492, 0.0897714}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["87", {0.103183, 0.0900086}, ImageScaled[{1, 1}],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> RGBColor[1, 0, 0]}], 
+   InsetBox["1", {0.11068299999999999, -0.09332440000000002}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["2", {0.095683, -0.08665773333333333}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["3", {0.065683, -0.09332440000000002}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["4", {0.050683, -0.08665773333333333}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["5", {0.020682999999999997, -0.09332440000000002}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["6", {0.0056830000000000006, -0.08665773333333333}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["7", {-0.024317000000000002, -0.09332440000000002}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["8", {-0.039317, -0.08665773333333333}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["9", {-0.060983666666666665, -0.09332440000000002}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["10", {-0.06765033333333333, -0.08665773333333333}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["11", {-0.060983666666666665, -0.06665773333333334}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["12", {-0.06765033333333333, -0.0533244}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["13", {-0.060983666666666665, -0.026657733333333333}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["14", {-0.06765033333333333, -0.013324399999999998}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["15", {-0.060983666666666665, 0.013342266666666667}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["16", {-0.06765033333333333, 0.026675600000000004}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["17", {-0.060983666666666665, 0.053342266666666666}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["18", {-0.06765033333333333, 0.0666756}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["19", {-0.06765033333333333, 0.09334226666666667}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["20", {-0.060983666666666665, 0.0866756}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["21", {-0.039317, 0.09334226666666667}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["22", {-0.024317000000000002, 0.0866756}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["23", {0.0056830000000000006, 0.09334226666666667}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["24", {0.020682999999999997, 0.0866756}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["25", {0.05059403333333334, 0.09330273333333335}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["26", {0.06559403333333334, 0.08663606666666668}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["27", {0.095683, 0.09334226666666667}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}], 
+   InsetBox["28", {0.11068299999999999, 0.0866756}, NCache[
+    ImageScaled[{Rational[1, 2], Rational[1, 2]}], ImageScaled[{0.5, 0.5}]],
+    Background->None,
+    BaseStyle->{
+     FontFamily -> "Arial", FontSize -> 8, FontColor -> GrayLevel[0.5]}]},
+  ImageSize->500]], "Output",
+ CellChangeTimes->{
+  3.947729558529442*^9, 3.9477295943462243`*^9, {3.9477296257534046`*^9, 
+   3.947729689056295*^9}, {3.9477298611907763`*^9, 3.947729866554124*^9}, 
+   3.947731309776298*^9, 3.9477316558235893`*^9, 3.9477345576320667`*^9, 
+   3.9477431680444546`*^9, 3.947746389974506*^9, 3.9477492042417*^9, 
+   3.94775886761558*^9, 3.9478858137618303`*^9, 3.9480296267780704`*^9, 
+   3.952770261219036*^9, 3.9528376566705494`*^9, 3.9528400342832875`*^9, 
+   3.953166008407183*^9, 3.9531697479368715`*^9, 3.9531739319583683`*^9, 
+   3.9531739750362544`*^9, 3.953174040997368*^9, 3.9531742068875217`*^9, 
+   3.9531745943801537`*^9, 3.9533668463572187`*^9, 3.953501487686593*^9, 
+   3.953508521258848*^9, 3.953532589071871*^9, 3.9536304794622693`*^9, 
+   3.953683969576867*^9, 3.9537031256562757`*^9, 3.953848873042253*^9, 
+   3.9538543998038473`*^9, 3.953878048212601*^9, 3.953965942403496*^9, 
+   3.953973999901881*^9, 3.954229943509942*^9, 3.9545350342517023`*^9, 
+   3.9546724290541124`*^9, 3.954698450924324*^9, 3.955787824073718*^9, {
+   3.9765003251955757`*^9, 3.976500330787409*^9}, {3.9765006578386326`*^9, 
+   3.9765006624596877`*^9}, 3.9765022817984085`*^9, {3.9765024265708227`*^9, 
+   3.9765024309872885`*^9}, 3.9765025871669097`*^9, {3.976503471006383*^9, 
+   3.976503501859153*^9}},
+ CellLabel->"Out[21]=",ExpressionUUID->"4c9fd3d3-c15e-46bf-9c81-6273c5413e74"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"E0", "=", 
+    RowBox[{"198.0", "*", 
+     RowBox[{"10", "^", "9"}]}]}], ";"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{"Elastic", " ", "modulus"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"v", "=", "0.3"}], ";"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{" ", "Poisson", "\[CloseCurlyQuote]"}], "s", " ", "ratio"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Rho]", "=", "7850.0"}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"mass", " ", "density"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"gauss", "=", "gauss10"}], ";"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"gauss", " ", "quadrature", " ", "rules", " ", "data"}], ",", " ", 
+    RowBox[{"with", " ", "algebra", " ", "precision", " ", "10"}]}], " ", 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"k", ",", "M", ",", "nu0"}], "}"}], "=", 
+   RowBox[{"mk0", "[", 
+    RowBox[{
+    "E0", ",", "v", ",", "\[Rho]", ",", "gauss", ",", "gcoord", ",", "gnum"}],
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"k", ":", " ", 
+      RowBox[{"cross", "-", 
+       RowBox[{"sectional", " ", "stiffness", " ", "matrix"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"M", ":", " ", 
+      RowBox[{"cross", "-", 
+       RowBox[{"sectional", " ", "mass", " ", "matrix"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"nu0", " ", ":", " ", 
+      RowBox[{
+      "integration", " ", "of", " ", "the", " ", "displacement", " ", "shape",
+        " ", "function"}]}]}], ",", " ", 
+    RowBox[{
+    "which", " ", "is", " ", "used", " ", "for", " ", "generation", " ", "of",
+      " ", "body", " ", "force"}]}], "\[IndentingNewLine]", 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.947676643901041*^9, 3.9476766740286016`*^9}, {
+  3.947676722813509*^9, 3.9476767385331297`*^9}, {3.9476794097083645`*^9, 
+  3.947679435164234*^9}, {3.95578784381625*^9, 3.955787850709306*^9}, {
+  3.955787883240116*^9, 3.955787883431362*^9}, {3.9765031079351516`*^9, 
+  3.976503333754451*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"d1d5b657-1481-4567-a00b-b9ea769c77ed"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "save", " ", "the", " ", "results", " ", "to", " ", "a", " ", "MATLAB", 
+    " ", "data", " ", "file"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<kmu.mat\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\"\<k0\>\"", "->", "k"}], ",", 
+       RowBox[{"\"\<m0\>\"", "->", "M"}], ",", 
+       RowBox[{"\"\<nu0\>\"", "->", "nu0"}]}], "}"}], ",", 
+     RowBox[{"\"\<Version\>\"", "->", "Automatic"}]}], "]"}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.9765026132111726`*^9, 3.9765026158831377`*^9}, {
+  3.976502765926279*^9, 3.9765027857631593`*^9}, {3.9765033529296064`*^9, 
+  3.976503365091099*^9}, {3.9765033983924694`*^9, 3.976503409871404*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"c4eee833-807e-4f7e-abd2-40910d3f3063"]
+},
+WindowSize->{1271.25, 999.75},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+TaggingRules-><|"TryRealOnly" -> False|>,
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (2022\:5e7411\:670818\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"72a6730b-3e77-459d-832b-47d0ca5631df"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 451, 8, 28, "Input",ExpressionUUID->"3816271f-da5c-4647-abcc-78883027c008"],
+Cell[1012, 30, 310, 6, 28, "Input",ExpressionUUID->"0b08df36-b061-4139-8147-cad1c7d3b454"],
+Cell[1325, 38, 356, 7, 51, "Text",ExpressionUUID->"9f31f999-dbe3-4e05-a6bb-212040c0c5ef"],
+Cell[1684, 47, 1129, 26, 67, "Input",ExpressionUUID->"23ac4dc3-06db-4f38-be4d-212407832ed6"],
+Cell[2816, 75, 359, 7, 51, "Text",ExpressionUUID->"7c7030d6-b097-4b82-a16f-dc04923b5212"],
+Cell[3178, 84, 620, 17, 48, "Input",ExpressionUUID->"17129d06-67d1-4218-abba-852a8391e409"],
+Cell[3801, 103, 318, 5, 51, "Text",ExpressionUUID->"91ccff5c-2fcd-4637-a44e-a657cec5d44f"],
+Cell[CellGroupData[{
+Cell[4144, 112, 272, 5, 28, "Input",ExpressionUUID->"7d268aa6-7839-43ff-8128-ba46b3dd6bb7"],
+Cell[4419, 119, 38481, 813, 516, "Output",ExpressionUUID->"4c9fd3d3-c15e-46bf-9c81-6273c5413e74"]
+}, Open  ]],
+Cell[42915, 935, 2269, 61, 200, "Input",ExpressionUUID->"d1d5b657-1481-4567-a00b-b9ea769c77ed"],
+Cell[45187, 998, 851, 19, 48, "Input",ExpressionUUID->"c4eee833-807e-4f7e-abd2-40910d3f3063"]
+}
+]
+*)
+
